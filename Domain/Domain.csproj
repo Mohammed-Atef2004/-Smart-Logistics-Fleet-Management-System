@@ -10,12 +10,18 @@
     <Folder Include="Billing\" />
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\Services\" />
-    <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Exceptions\" />
     <Folder Include="ValueObjects\" />
     <Folder Include="Notifications\" />
     <Folder Include="Warehouse\" />
     <Folder Include="Shipment\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.4" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="10.0.1" />
   </ItemGroup>
 
 </Project>

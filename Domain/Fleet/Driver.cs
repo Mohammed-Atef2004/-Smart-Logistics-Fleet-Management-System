@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Domain.Fleet
     {
         public string Name { get; private set; }
         public string LicenseNumber { get; private set; }
+        public string AppliationUserId { get; private set; }
+        public ApplicationUser applicationUser { get; private set; }
 
         // Relationship
         public Vehicle? Vehicle { get; private set; }
