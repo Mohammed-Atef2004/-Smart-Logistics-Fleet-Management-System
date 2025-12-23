@@ -6,19 +6,31 @@ using System.Threading.Tasks;
 
 namespace Domain.Common
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot : BaseEntity
     {
-        private readonly List<DomainEvent> _domainEvents = new List<DomainEvent>();
-        // Expose domain events as a read-only collection
-        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
-        // Protected to allow only derived classes to add domain events
-        protected void AddDomainEvent(DomainEvent domainEvent)=>_domainEvents.Add(domainEvent);
-        //public method to clear domain events, because after dispatching them, they should be cleared,
-        //the dispatching logic will be handled in the infrastructure layer with the help of a mediator so we need
-        //it to be public to hanlde the clearing logic
-        public void ClearDomainEvents() => _domainEvents.Clear();
+        private readonly List<DomainEvent> _domainEvents = new();
 
+        public IReadOnlyCollection<DomainEvent> DomainEvents
+            => _domainEvents.AsReadOnly();
 
+        protected void AddDomainEvent(DomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
 
+        protected void CheckRule(IBusinessRule rule)
+        {
+            if (rule == null)
+                throw new ArgumentNullException(nameof(rule));
+
+            if (rule.IsBroken())
+                throw new BusinessRuleViolationException(rule.Message);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
     }
+
 }
